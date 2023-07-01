@@ -1,0 +1,149 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+class Node{
+    
+    public:
+    int data;        //data present in present Node
+    Node* next;     //address of next Node
+    
+    Node(int data){            
+        this->data=data;     //here this refers to that particular Node name the Node is referring to ex-Node1,Node2etc
+        this->next=NULL;        //Creating a new Node just by entering a data value
+    }
+};
+
+ void insertathead(Node* &head,int d)    //insert a Node at the begining of the exact head not the copy
+{
+       Node *temp=new Node(d);
+       temp->next=head;
+       head=temp; 
+      
+}
+
+void insertattail(Node* &tail,int d){
+    
+    Node *temp=new Node(d);
+    
+    tail->next=temp;
+    tail=temp;
+    
+}
+
+void insertatpos(int d,int p,Node* &head)
+{
+    Node* temp=new Node(d);
+    temp->next=NULL;
+    
+    Node* temp2=head;
+    int c=1;
+    while(c!=p-1)
+    {
+        temp2=temp2->next;
+        c++;
+    }
+    
+    temp->next=temp2->next;
+    temp2->next=temp;
+    
+}
+
+void print(Node* &head)
+{
+    Node* temp=head;
+    
+    while(temp!=NULL)
+    {
+        cout<<temp->data<<endl;               //traversing the linkedlist till i get null and printing data from each Node
+        temp=temp->next;
+    } 
+}
+
+  void deleteatpos(int pos,Node* &head)
+ {
+  int t=0;
+  Node* temp;
+  temp=head;
+  
+    while(temp!=NULL)
+   {
+      t++;
+      temp=temp->next; 
+   }
+  
+     if(pos==1)
+    {
+      Node* temp1=head;
+      head=head->next;
+      delete temp1;
+          
+    }
+     else if(pos==t-1)
+    {
+      Node* temp1=head;
+      Node* temp2;
+      int c=1;
+      
+      while(c!=pos-1)
+      {
+          temp1=temp1->next;
+          
+          c++;
+      }
+      temp2=temp1->next;
+      temp1->next=NULL;
+      delete temp2;
+      
+      
+      
+    }
+     else
+    {
+      Node* temp1=head;
+      Node* temp2=head;
+      
+      int c=1;
+      while(c!=pos-1)
+      {
+          temp1=temp1->next;
+          
+          c++;
+      }
+      temp2=temp1->next;
+      temp1->next=temp2->next;
+      delete temp2;
+      
+      
+     }
+  
+ }
+
+int main()
+{
+    // Node* Node1=new Node();
+    // cout<<Node1->data<<endl;
+    // cout<<Node1->next<<endl;
+    
+     Node* Node1=new Node(10);
+     Node* head=Node1;
+     Node* Tail=head;
+    //  insertathead(head,20);
+    //  insertathead(head,10);
+    //  insertathead(head,15);
+    //  insertathead(head,17);
+    //  insertathead(head,19);
+    
+    insertattail(Tail,20);
+    insertattail(Tail,15);
+    insertattail(Tail,16);
+    insertattail(Tail,8);
+    insertatpos(31,2,head);
+     print(head);
+     
+     
+     deleteatpos(2,head);
+     cout<<endl;
+     print(head);
+    return 0;
+
+}
